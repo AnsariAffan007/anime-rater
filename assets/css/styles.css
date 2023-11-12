@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Anime Ace';
+  src: url('/assets/fonts/animeace2_reg.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Anime Ace';
+}
+
+.history-table table {
+  display: block;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #475569;
+}
+
+select option[hidden] {
+  color: rgba(175, 175, 175, 0.7); 
+}
+
+#prediction-display-container {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.rate-data {
+  border-radius: 15px;
+  padding: 5px 10px;
+  background-color: #475569;
+}

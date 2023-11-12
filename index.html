@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnimeForecasts</title>
+  <link rel="stylesheet" href="/assets/css/output.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body class="bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700">
+  <div class="p-10 flex justify-between">
+    <span class="text-white text-base font-bold heading">Anime_Forecasts</span>
+    <p id="about" class="text-white text-xs underline my-auto cursor-pointer">About</p>
+    <p id="home" class="text-white text-xs underline my-auto hidden cursor-pointer">Home</p>
+  </div>
+  <div id="main" class="">
+    <div class="m-10 p-8 bg-slate-900/30 rounded-lg" id="predict">
+      <h3 class="mb-8 text-white text-center">Get your Anime's Rating</h3>
+      <form action="/" id="predicterForm" class="grid gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <select id="type" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+            <option value="" disabled selected hidden>Select Type</option>
+            <option value="DVD S">DVD S</option>
+            <option value="Movie">Movie</option>
+            <option value="Music">Music</option>
+            <option value="OVA">OVA</option>
+            <option value="TV">TV</option>
+            <option value="TV Sp">TV Special</option>
+            <option value="Web">Web</option>
+            <option value="Other">Other</option>
+          </select>
+          <input type="number" max='1500' id="episodes" required placeholder="Number of Episodes"
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <select placeholder="Release Year" id="year" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+            <option value="" disabled selected hidden>Release Year</option>
+          </select>
+          <select id="studio" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+            <option value="" disabled selected hidden>Select Studio</option>
+          </select>
+          <select id="season" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+            <option value="" disabled selected hidden>Release Season</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+            <option value="Fall">Fall</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+          <input type="number" min="0" max="9" step="1" placeholder="Number of warnings" id="warnings"
+            required class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+          <input type="number" min="0" max="74" step="1" placeholder="Similar Anime Count" id="similarAnimes"
+            required class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+          <input type="number" min="0" max="53" step="1" placeholder="Similar Manga Count" id="similarMangas"
+            required class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+          <!-- CALCULATE ONE FIELD THAT IS MEDIA COUNT -->
+          <!-- <select class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+              <option value="" disabled selected hidden>Select car:</option>
+              <option value="1">Audi</option>
+              <option value="2">BMW</option>
+            </select> -->
+          <input type="number" min="0" max="16" step="1" placeholder="VA Count" id="vas" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs">
+          </input>
+          <input type="number" min="0" max="8" step="1" placeholder="Staff Count" id="staff" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+          <input type="number" min="0" max="28" step="1" placeholder="Genre Count" id="genres" required
+            class="border-none bg-slate-600 h-8 rounded-lg p-2 text-slate-300 focus:outline-none text-xs" />
+        </div>
+        <div class=" bg-slate-400 rounded-lg  text-center">
+          <button type="submit" class="text-black font-bold w-full p-2">Predict</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="prediction-display-container" class="text-white flex justify-center align-middle space-x-4 text-xl">
+      <h2 class="">Predicted Rating</h2>
+      <span class="">:</span>
+      <h2 id="rating-display" class="italic inline-block" style="width: 60px;"></h2>
+    </div>
+
+    <div class="m-10 p-8 bg-slate-900/30 rounded-lg">
+      <div class="mb-8 flex justify-between">
+        <h3 class="text-white">History</h3>
+        <span id="delete-history" class="text-xs text-white my-auto italic underline cursor-pointer">Delete</span>
+      </div>
+      <div class="history-table text-xs">
+        <table class="border-collapse table-auto w-full">
+          <thead class="bg-slate-600 text-slate-300">
+            <tr>
+              <th class="p-5">Type</th>
+              <th class="p-5">Episodes</th>
+              <th class="p-5">Release Year</th>
+              <th class="p-5">Release Season</th>
+              <th class="p-5">Studio</th>
+              <th class="p-5">Warnings Count</th>
+              <th class="p-5">Similar Animes</th>
+              <th class="p-5">Similar Mangas</th>
+              <th class="p-5">Voice Actors</th>
+              <th class="p-5">Staff Count</th>
+              <th class="p-5">Genres</th>
+              <th class="p-5">Predicted Rating</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="text-slate-300 bg-slate-700">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <section id="about-section" class="px-10 hidden">
+    <h1 class="my-4 ms-2 text-white text-xl">Form Fields</h1>
+    <hr class="mb-4 border-slate-500">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Type</h3>
+        <p class="text-slate-400 text-xs">Type specifies what type of anime you're producing. Either it be a Movie or a Series with some episodes, or Chinese(Web), Music video, OVA etcetera.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Number of Episodes</h3>
+        <p class="text-slate-400 text-xs">For a movie, it will specify the number of parts a movie will have, for a TV series, it'll simply specify the number of episodes.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Release Year</h3>
+        <p class="text-slate-400 text-xs">Has a range from 1950 to 2030. For the years that have passed, as well as for those yet to come, it'll simply predict the rating. You can take it as forecasted rating for years yet to come.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Release Season</h3>
+        <p class="text-slate-400 text-xs">The 4 seasons of the year, with a single season spanning 3 months in ascending order.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Studio</h3>
+        <p class="text-slate-400 text-xs">The studio that you want to animate your Anime. Has a long list, some of which are well known, some unheard of.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Number of warnings</h3>
+        <p class="text-slate-400 text-xs">The Count of warnings, that the anime contained, or will contain. For example, extreme violence, cannibalism etc...</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Similar Animes</h3>
+        <p class="text-slate-400 text-xs">The Count of animes that match with your intended anime.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Similar Mangas</h3>
+        <p class="text-slate-400 text-xs">The Count of mangas that match with your intended anime.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">VA Count</h3>
+        <p class="text-slate-400 text-xs">The number of voice actors that were involved.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Staff Count</h3>
+        <p class="text-slate-400 text-xs">The number of staff that were involved. It can be animator, managers or any other person involved.</p>
+      </div>
+      <div class="shadow-lg p-4 space-y-3 bg-slate-900/30 rounded-lg">
+        <h3 class="text-sm p-2 bg-slate-600 text-white rounded-lg w-fit">Genre Count</h3>
+        <p class="text-slate-400 text-xs">Number of genres. Generally there are 3-4, but here it has a range from 0 to 28.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="../assets/js/index.js" type="module"></script>
+</body>
+
+</html>
